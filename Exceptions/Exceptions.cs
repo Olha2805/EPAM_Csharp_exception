@@ -69,6 +69,7 @@ namespace Exceptions
         /// <param name="matrix"><see cref="Matrix"/> for adding.</param>
         /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
         /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
+        /// <returns><see cref="Matrix"/></returns>
         public Matrix Add(Matrix matrix)
         {
             throw new NotImplementedException();
@@ -80,6 +81,7 @@ namespace Exceptions
         /// <param name="matrix"><see cref="Matrix"/> for subtracting.</param>
         /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
         /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
+        /// <returns><see cref="Matrix"/></returns>
         public Matrix Subtract(Matrix matrix)
         {
             throw new NotImplementedException();
@@ -91,6 +93,7 @@ namespace Exceptions
         /// <param name="matrix"><see cref="Matrix"/> for multiplying.</param>
         /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
         /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
+        /// <returns><see cref="Matrix"/></returns>
         public Matrix Multiply(Matrix matrix)
         {
             throw new NotImplementedException();
