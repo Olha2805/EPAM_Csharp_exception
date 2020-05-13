@@ -35,7 +35,7 @@ namespace Exceptions
         /// </summary>
         /// <param name="rows"></param>
         /// <param name="columns"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when row or column is negative.</exception>
         public Matrix(int rows, int columns)
         {
             throw new NotImplementedException();
@@ -45,18 +45,18 @@ namespace Exceptions
         /// Initializes a new instance of the <see cref="Matrix"/> class with the specified elements.
         /// </summary>
         /// <param name="array">An array of floating-point values that represents the elements of this Matrix.</param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">Thrown when array is null.</exception>
         public Matrix(double[,] array)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Allows instances of a Matrix to be indexed just like arrays.
+        /// Allows instances of a <see cref="Matrix"/> to be indexed just like arrays.
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException">Thrown when index is out of range.</exception>
         public double this[int row, int column]
         {
             get => throw new NotImplementedException();
@@ -67,8 +67,8 @@ namespace Exceptions
         /// Adds <see cref="Matrix"/> to the current matrix.
         /// </summary>
         /// <param name="matrix"><see cref="Matrix"/> for adding.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
+        /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
+        /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
         public Matrix Add(Matrix matrix)
         {
             throw new NotImplementedException();
@@ -78,8 +78,8 @@ namespace Exceptions
         /// Subtracts <see cref="Matrix"/> from the current matrix.
         /// </summary>
         /// <param name="matrix"><see cref="Matrix"/> for subtracting.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
+        /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
+        /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
         public Matrix Subtract(Matrix matrix)
         {
             throw new NotImplementedException();
@@ -89,8 +89,8 @@ namespace Exceptions
         /// Multiplies <see cref="Matrix"/> on the current matrix.
         /// </summary>
         /// <param name="matrix"><see cref="Matrix"/> for multiplying.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
+        /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
+        /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
         public Matrix Multiply(Matrix matrix)
         {
             throw new NotImplementedException();
