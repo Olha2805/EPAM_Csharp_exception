@@ -23,9 +23,8 @@ namespace Exceptions
         }
 
         /// <summary>
-        /// Gets an array of floating-point values that represents the elements of this Matrix.
+        /// An array of floating-point values that represents the elements of this Matrix.
         /// </summary>
-        /// <returns>2D array that represents the elements of this Matrix.</returns>
         public double[,] Array
         {
             get => throw new NotImplementedException();
