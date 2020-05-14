@@ -4,8 +4,4 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Exceptions.Tests\Exceptions.Tests.csproj" />
-    </ItemGroup>
-
 </Project>
