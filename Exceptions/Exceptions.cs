@@ -35,7 +35,7 @@ namespace Exceptions
         /// </summary>
         /// <param name="rows"></param>
         /// <param name="columns"></param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when row or column is negative.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when row or column is zero or negative.</exception>
         public Matrix(int rows, int columns)
         {
             throw new NotImplementedException();
