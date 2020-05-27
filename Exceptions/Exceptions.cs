@@ -56,7 +56,7 @@ namespace Exceptions
         /// </summary>
         /// <param name="row"></param>
         /// <param name="column"></param>
-        /// <exception cref="IndexOutOfRangeException">Thrown when index is out of range.</exception>
+        /// <exception cref="ArgumentException">Thrown when index is out of range.</exception>
         public double this[int row, int column]
         {
             get => throw new NotImplementedException();
