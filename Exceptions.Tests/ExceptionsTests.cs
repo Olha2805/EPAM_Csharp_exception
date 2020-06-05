@@ -165,9 +165,7 @@ namespace Exceptions.Tests
         #endregion
         
         #endregion
-        
-        #region Low
-        
+
         [TestCaseSource(nameof(ArraysCreateMatrix))]
         public void CreateMatrix_WithArray_PublicProperties_ReturnsCorrectValues(double[,] expectedArray)
         {
@@ -329,10 +327,6 @@ namespace Exceptions.Tests
             Assert.AreEqual(expectedArray, arrayMatrix,
                 message: "ToArray method returns array that is not equal to expected.");
         }
-        
-        #endregion
-        
-        #region Middle
 
         [TestCase(-1, 2)]
         [TestCase(1, -2)]
@@ -414,10 +408,6 @@ namespace Exceptions.Tests
             Assert.NotNull(expectedException, message: "'MatrixException' is not implemented.");
             Assert.AreEqual(expectedException, actException.GetType(), message: "Subtract method should throw matrix exception in case of inappropriate matrices dimensions.");
         }
-        
-        #endregion
-
-        #region Advanced
 
         [Test]
         public void Add_WithNull_ArgumentNullExceptionThrown()
@@ -462,6 +452,5 @@ namespace Exceptions.Tests
             Assert.AreEqual(expectedException, actException.GetType(), 
                 message: "Subtract method should throw argument null exception if parameter is null.");
         }
-        #endregion
     }
 }
