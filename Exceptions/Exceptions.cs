@@ -21,23 +21,23 @@ namespace Exceptions
             { get; }   
         public Matrix(int rows, int columns)
         {
+            if (rows < 0 || columns < 0) throw new ArgumentOutOfRangeException(nameof(Rows), nameof(Columns));
             Rows = rows;
             Columns = columns;
-            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
             Array = new double[rows, columns];
                 if (rows <= 0 || columns <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("invalid", nameof(rows), nameof(columns));
+                    throw new ArgumentOutOfRangeException( nameof(rows), nameof(columns));
                 } 
             if (Array == null) throw new MatrixException();
         }
 
         public Matrix(double[,] array)
         {
-            if (array == null) throw new ArgumentNullException("invalid", nameof(array));
+            if (array == null) throw new ArgumentNullException( nameof(array));
             Rows = array.GetLength(0);
             Columns = array.GetLength(1);
-            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
+            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException( nameof(Rows), nameof(Columns));
             Array = array;
             Array = new double[Rows, Columns];
         }
@@ -46,22 +46,22 @@ namespace Exceptions
         {
             get
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException("invalid", nameof(Rows));
-                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
+                if (row >= Rows || column >= Columns) throw new ArgumentException( nameof(Rows));
+                if (row < 0 || column < 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
                 return Array[row, column];  
             }
             set
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException("invalid", nameof(Rows));
-                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
+                if (row >= Rows || column >= Columns) throw new ArgumentException( nameof(Rows));
+                if (row < 0 || column < 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
                 Array[row, column] = value;
             }
         } 
         public Matrix Add(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
+            if (matrix == null) throw new ArgumentNullException( nameof(matrix));
             if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
@@ -74,9 +74,9 @@ namespace Exceptions
         }
         public Matrix Subtract(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
+            if (matrix == null) throw new ArgumentNullException( nameof(matrix));
             if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
@@ -89,11 +89,11 @@ namespace Exceptions
         }
         public Matrix Multiply(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
+            if (matrix == null) throw new ArgumentNullException( nameof(matrix));
             if (matrix.Columns != Rows || matrix.Rows != Columns)  throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
 
-             Matrix matrix1 = new Matrix(matrix.Columns, matrix.Rows);
+             Matrix matrix1 = new Matrix(matrix.Columns, Array.GetLength(1));
             for (int i = 0; i < matrix.Columns; i++)
             {
                 for (int j = 0; j < matrix.Rows; j++)
