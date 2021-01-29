@@ -2,101 +2,108 @@
 
 namespace Exceptions
 {
-    //TODO: Create custom exception "MatrixException"
-    
+    public class MatrixException : Exception
+    {
+        public MatrixException() { }
+        public MatrixException(string message) : base(message) { }
+        public MatrixException(string message, Exception inner) : base(message, inner) { }
+        protected MatrixException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
     public class Matrix
     {
-        /// <summary>
-        /// Number of rows.
-        /// </summary>
         public int Rows
-        {
-            get => throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Number of columns.
-        /// </summary>
+         { get; }
         public int Columns
-        {
-            get => throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// An array of floating-point values that represents the elements of this Matrix.
-        /// </summary>
+            { get; }
         public double[,] Array
-        {
-            get => throw new NotImplementedException();
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix"/> class.
-        /// </summary>
-        /// <param name="rows"></param>
-        /// <param name="columns"></param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when row or column is zero or negative.</exception>
+            { get; }   
         public Matrix(int rows, int columns)
         {
-            throw new NotImplementedException();
+            Rows = rows;
+            Columns = columns;
+            Array = new double[rows, columns];
+                if (rows <= 0 || columns <= 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                } 
+            if (Array == null) throw new MatrixException();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix"/> class with the specified elements.
-        /// </summary>
-        /// <param name="array">An array of floating-point values that represents the elements of this Matrix.</param>
-        /// <exception cref="ArgumentNullException">Thrown when array is null.</exception>
         public Matrix(double[,] array)
         {
-            throw new NotImplementedException();
+            if (array == null) throw new ArgumentNullException();
+            Rows = array.GetLength(0);
+            Columns = array.GetLength(1);
+            Array = array;
+            Array = new double[Rows, Columns];
         }
 
-        /// <summary>
-        /// Allows instances of a <see cref="Matrix"/> to be indexed just like arrays.
-        /// </summary>
-        /// <param name="row"></param>
-        /// <param name="column"></param>
-        /// <exception cref="ArgumentException">Thrown when index is out of range.</exception>
         public double this[int row, int column]
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Adds <see cref="Matrix"/> to the current matrix.
-        /// </summary>
-        /// <param name="matrix"><see cref="Matrix"/> for adding.</param>
-        /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
-        /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
-        /// <returns><see cref="Matrix"/></returns>
+            get
+            {
+                if (row >= Rows || column >= Columns) throw new ArgumentException();
+                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException();
+                return Array[row, column];  
+            }
+            set
+            {
+                if (row >= Rows || column >= Columns) throw new ArgumentException();
+                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException();
+                Array[row, column] = value;
+            }
+        } 
         public Matrix Add(Matrix matrix)
         {
-            throw new NotImplementedException();
+            if (matrix == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (matrix.Columns != Columns || matrix.Rows != Rows)
+            {
+                throw new MatrixException();
+            }
+            for (int i = 0; i < Array.GetLength(0); i++)
+            {
+                for (int j = 0; j < Array.GetLength(1); j++)
+                {
+                    matrix[i, j] += Array[i, j];
+                }
+            }
+            return matrix;
         }
-
-        /// <summary>
-        /// Subtracts <see cref="Matrix"/> from the current matrix.
-        /// </summary>
-        /// <param name="matrix"><see cref="Matrix"/> for subtracting.</param>
-        /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
-        /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
-        /// <returns><see cref="Matrix"/></returns>
         public Matrix Subtract(Matrix matrix)
         {
-            throw new NotImplementedException();
-        }
+            if (matrix == null) throw new ArgumentNullException();
+            if (matrix.Columns != Rows || matrix.Rows != Columns) throw new MatrixException();
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException();
 
-        /// <summary>
-        /// Multiplies <see cref="Matrix"/> on the current matrix.
-        /// </summary>
-        /// <param name="matrix"><see cref="Matrix"/> for multiplying.</param>
-        /// <exception cref="ArgumentNullException">Thrown when parameter is null.</exception>
-        /// <exception cref="MatrixException">Thrown when the matrix has the wrong dimensions for the operation.</exception>
-        /// <returns><see cref="Matrix"/></returns>
+            for (int i = 0; i < Array.GetLength(0); i++)
+            {
+                for (int j = 0; j < Array.GetLength(1); j++) matrix[i, j] -= Array[i, j];
+            }
+            return matrix;
+        }
         public Matrix Multiply(Matrix matrix)
         {
-            throw new NotImplementedException();
-        }
+            if (matrix == null) throw new ArgumentNullException();
+            if (matrix.Columns != Rows || matrix.Rows != Columns)  throw new MatrixException();
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException();
+            
+            Matrix matrix1 = new Matrix(matrix.Columns, matrix.Rows);
+            for (int i = 0; i < Array.GetLength(0); i++)
+            {
+                for (int j = 0; j < Array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < matrix.Columns; k++)
+                    {
+                        matrix1[i, j] = matrix[i, k] * Array[k, j];
+                    }
+                }
+            }
+            return matrix1;        
+         }
     }
 }
