@@ -295,7 +295,7 @@ namespace Exceptions.Tests
             // Act
             var actual = matrix1.Add(matrix2);
 
-            // Assert
+            // AssertArraysMinusOperator
             Assert.AreEqual(expected.Array, actual.Array, message: "Add method works incorrectly.");
         }
         

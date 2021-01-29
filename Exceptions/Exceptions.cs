@@ -75,7 +75,7 @@ namespace Exceptions
         public Matrix Subtract(Matrix matrix)
         {
             if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
-            if (matrix.Columns != Rows || matrix.Rows != Columns) throw new MatrixException();
+            if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
             if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
 
             for (int i = 0; i < Array.GetLength(0); i++)
