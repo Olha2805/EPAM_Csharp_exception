@@ -21,7 +21,7 @@ namespace Exceptions
             { get; }   
         public Matrix(int rows, int columns)
         {
-            if (rows < 0 || columns < 0) throw new ArgumentOutOfRangeException(nameof(Rows), nameof(Columns));
+            if (rows < 0 || columns < 0) throw new ArgumentOutOfRangeException(nameof(rows), nameof(columns));
             Rows = rows;
             Columns = columns;
             Array = new double[rows, columns];
@@ -46,14 +46,14 @@ namespace Exceptions
         {
             get
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException( nameof(Rows));
-                if (row < 0 || column < 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
+                if (row >= Rows || column >= Columns) throw new ArgumentException(nameof(row), nameof(column));
+                if (row < 0 || column < 0) throw new ArgumentException (nameof(row), nameof(column));
                 return Array[row, column];  
             }
             set
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException( nameof(Rows));
-                if (row < 0 || column < 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
+                if (row >= Rows || column >= Columns) throw new ArgumentException(nameof(row), nameof(column));
+                if (row < 0 || column < 0) throw new ArgumentException (nameof(row), nameof(column));
                 Array[row, column] = value;
             }
         } 
@@ -61,7 +61,7 @@ namespace Exceptions
         {
             if (matrix == null) throw new ArgumentNullException( nameof(matrix));
             if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException (nameof(Columns), nameof(Rows));
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
@@ -76,7 +76,7 @@ namespace Exceptions
         {
             if (matrix == null) throw new ArgumentNullException( nameof(matrix));
             if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException (nameof(Columns), nameof(Rows));
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
@@ -91,7 +91,7 @@ namespace Exceptions
         {
             if (matrix == null) throw new ArgumentNullException( nameof(matrix));
             if (matrix.Columns != Rows || matrix.Rows != Columns)  throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException ( nameof(Rows), nameof(Columns));
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException (nameof(Columns), nameof(Rows));
 
              Matrix matrix1 = new Matrix(matrix.Columns, Array.GetLength(1));
             for (int i = 0; i < matrix.Columns; i++)
