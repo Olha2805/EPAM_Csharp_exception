@@ -23,21 +23,21 @@ namespace Exceptions
         {
             Rows = rows;
             Columns = columns;
-            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
             Array = new double[rows, columns];
                 if (rows <= 0 || columns <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("бідапічальпомилка");
+                    throw new ArgumentOutOfRangeException("invalid", nameof(rows), nameof(columns));
                 } 
-            if (Array == null) throw new MatrixException("бідапічальпомилка");
+            if (Array == null) throw new MatrixException();
         }
 
         public Matrix(double[,] array)
         {
-            if (array == null) throw new ArgumentNullException("бідапічальпомилка");
+            if (array == null) throw new ArgumentNullException("invalid", nameof(array));
             Rows = array.GetLength(0);
             Columns = array.GetLength(1);
-            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
             Array = array;
             Array = new double[Rows, Columns];
         }
@@ -46,22 +46,22 @@ namespace Exceptions
         {
             get
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException("бідапічальпомилка");
-                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+                if (row >= Rows || column >= Columns) throw new ArgumentException("invalid", nameof(Rows));
+                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
                 return Array[row, column];  
             }
             set
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException("бідапічальпомилка");
-                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+                if (row >= Rows || column >= Columns) throw new ArgumentException("invalid", nameof(Rows));
+                if (row < 0 || column < 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
                 Array[row, column] = value;
             }
         } 
         public Matrix Add(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException("бідапічальпомилка");
-            if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException("бідапічальпомилка");
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+            if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
+            if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
@@ -74,9 +74,9 @@ namespace Exceptions
         }
         public Matrix Subtract(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException("бідапічальпомилка");
-            if (matrix.Columns != Rows || matrix.Rows != Columns) throw new MatrixException("бідапічальпомилка");
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+            if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
+            if (matrix.Columns != Rows || matrix.Rows != Columns) throw new MatrixException();
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
@@ -89,9 +89,9 @@ namespace Exceptions
         }
         public Matrix Multiply(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException("бідапічальпомилка");
-            if (matrix.Columns != Rows || matrix.Rows != Columns)  throw new MatrixException("бідапічальпомилка");
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("бідапічальпомилка");
+            if (matrix == null) throw new ArgumentNullException("invalid", nameof(matrix));
+            if (matrix.Columns != Rows || matrix.Rows != Columns)  throw new MatrixException();
+            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentOutOfRangeException("invalid", nameof(Rows), nameof(Columns));
 
              Matrix matrix1 = new Matrix(matrix.Columns, matrix.Rows);
             for (int i = 0; i < matrix.Columns; i++)
