@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 
 namespace Exceptions
 {
+
+    [Serializable]
     public class MatrixException : Exception
     {
         public MatrixException() { }
@@ -11,100 +13,173 @@ namespace Exceptions
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
+    
     public class Matrix
-    {
+    {        
         public int Rows
-            { get; }
+        {
+            get;
+        }
         public int Columns
-            { get; }
+        {
+            get ;
+        }
+
         public double[,] Array
-            { get; }   
+        {
+            get;
+        }
         public Matrix(int rows, int columns)
         {
-            if (rows < 0 || columns < 0) throw new ArgumentOutOfRangeException(nameof(rows), nameof(columns));
+            
+            if (rows <= 0 || columns <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rows), nameof(columns));
+            }
             Rows = rows;
             Columns = columns;
             Array = new double[rows, columns];
-                if (rows <= 0 || columns <= 0)
-                {
-                    throw new ArgumentOutOfRangeException( nameof(rows), nameof(columns));
-                } 
-            if (Array == null) throw new MatrixException();
+            if (Array == null)
+            {
+                throw new MatrixException();
+            }
         }
 
+        
         public Matrix(double[,] array)
         {
-            if (array == null) throw new ArgumentNullException( nameof(array));
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
             Rows = array.GetLength(0);
             Columns = array.GetLength(1);
-            if (Rows < 0 || Columns < 0) throw new ArgumentOutOfRangeException( nameof(Rows), nameof(Columns));
-            Array = array;
+            if (Rows < 0 || Columns < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(array));
+            }
             Array = new double[Rows, Columns];
-        }
+            Array = array;
 
+
+        }
         public double this[int row, int column]
         {
+            
             get
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException(nameof(row), nameof(column));
-                if (row < 0 || column < 0) throw new ArgumentException (nameof(row), nameof(column));
-                return Array[row, column];  
+                if (row > Rows || column > Columns)
+                {
+                    throw new ArgumentException(nameof(row),nameof(column));
+                }
+                if (row < 0 || column < 0)
+                {
+                    throw new ArgumentException(nameof(row), nameof(column));
+                }
+                return Array[row, column];
             }
             set
             {
-                if (row >= Rows || column >= Columns) throw new ArgumentException(nameof(row), nameof(column));
-                if (row < 0 || column < 0) throw new ArgumentException (nameof(row), nameof(column));
+                if (row > Rows || column > Columns)
+                {
+                    throw new ArgumentException(nameof(row), nameof(column));
+                }
+                if (row < 0 || column < 0)
+                {
+                    throw new ArgumentException(nameof(row), nameof(column));
+                }
                 Array[row, column] = value;
             }
-        } 
+            
+        }
         public Matrix Add(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException( nameof(matrix));
-            if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException (nameof(Columns), nameof(Rows));
+            if (matrix == null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+            if (matrix.Columns != Columns|| matrix.Rows!=Rows)
+            {
+                throw new MatrixException();
+            }
+            if (matrix.Rows <= 0 || matrix.Columns <= 0)
+            {
+                throw new ArgumentException(nameof(matrix));
+            }
 
             for (int i = 0; i < Array.GetLength(0); i++)
             {
-                for (int j = 0; j < Array.GetLength(1); j++)
+                for (int j = 0; j < Array.GetLength(1); j++) 
                 {
                     matrix[i, j] += Array[i, j];
                 }
             }
             return matrix;
+
         }
+
         public Matrix Subtract(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException( nameof(matrix));
-            if (matrix.Columns != Columns || matrix.Rows != Rows) throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException (nameof(Columns), nameof(Rows));
-
+            
+            if (matrix == null)
+            {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+            if (matrix.Columns != Columns || matrix.Rows != Rows)
+            {
+                throw new MatrixException();
+            }
+            if (matrix.Rows <= 0 || matrix.Columns <= 0)
+            {
+                throw new ArgumentException(nameof(matrix));
+            }
             for (int i = 0; i < Array.GetLength(0); i++)
             {
                 for (int j = 0; j < Array.GetLength(1); j++)
                 {
-                    matrix[i, j] -= Array[i, j];
+                    Array[i, j] -= matrix[i, j];
                 }
             }
-            return matrix;
+            Matrix result = new Matrix(Array);
+            return result;
         }
         public Matrix Multiply(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException( nameof(matrix));
-            if (matrix.Columns != Rows || matrix.Rows != Columns)  throw new MatrixException();
-            if (matrix.Columns <= 0 || matrix.Rows <= 0) throw new ArgumentException (nameof(Columns), nameof(Rows));
-
-             Matrix matrix1 = new Matrix(matrix.Columns, Array.GetLength(1));
-            for (int i = 0; i < matrix.Columns; i++)
+            Matrix matrix2 = new Matrix(Array);
+            if (matrix == null)
             {
-                for (int j = 0; j < matrix.Rows; j++)
+                throw new ArgumentNullException(nameof(matrix));
+            }
+            if (matrix.Rows != matrix2.Columns)
+            {
+                throw new MatrixException();
+            }
+            if (matrix.Rows != matrix2.Columns)
+            {
+                throw new MatrixException();
+            }
+            if (matrix.Rows < 0 || matrix.Columns < 0)
+            {
+                throw new ArgumentException(nameof(matrix));
+            }
+            if (matrix.Rows == 0 || matrix.Columns == 0)
+            {
+                return matrix;
+            }
+
+            Matrix matrix1 = new Matrix(matrix2.Rows, matrix.Columns);
+            for (int i = 0; i < matrix1.Rows; i++)
+            {
+                for (int j = 0; j < matrix1.Columns; j++)
                 {
-                    for (int k = 0; k < Array.GetLength(0); k++)
+                    matrix1[i, j] = 0;
+                    for (int k = 0; k < matrix2.Columns; k++)
                     {
-                        matrix1[i, j] = matrix[i, j] * Array[i, j] + matrix [i, j]* Array [i, k];
+                        matrix1[i, j] += matrix2[i, k] * matrix[k, j];
                     }
                 }
             }
-            return matrix1;            
+            return matrix1;
         }
     }
 }
